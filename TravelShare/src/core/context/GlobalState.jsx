@@ -3,15 +3,18 @@ import Context from './Context'
 
 const GlobalState = ({children}) => {
 
-  const [currentUserId, setCurrentUserId] = useState('')
-  const [joinedRoutesId, setJoinedRoutesId] = useState([])
-
+  const [currrentUserName, setCurrrentUserName] = useState('')
+  const [routesJoined, setRoutesJoined] = useState([])
+  const [routesCreated, setRoutesCreated] = useState([])
+  
   return (
     <Context.Provider value={{
-        currentUserId,
-        joinedRoutesId,
-        setCurrentUserId,
-        setJoinedRoutesId
+      currrentUserName,
+      routesJoined,
+      routesCreated,
+      setCurrrentUserName,
+      setRoutesJoined,
+      setRoutesCreated
     }}>
         {children}
     </Context.Provider>

@@ -7,10 +7,14 @@ import { loginUser, registerUser } from '../core/services/userFetch.js'
 import UserRoutesPage from './UserRoutesPage.jsx'
 import '../styles.css';
 
+import context from '../core/context/Context.js'
+
 
 const LoginPage = () => {
 
   const [isLogin, setIsLogin] = useState(true)
+
+  const {setCurrentUserName} = useContext(context)
 
   const loginSchema = Yup.object().shape({
     email: Yup.string()
@@ -46,6 +50,7 @@ const LoginPage = () => {
       .min(6, 'Password must be at least 6 characters')
       .required('Password is required'),
     hasDriverLicense: Yup.boolean().required('This field is required'),
+    payment: Yup.string().required('This field is required')
   })
 
   const handleToggle = () => {
@@ -54,7 +59,7 @@ const LoginPage = () => {
 
   const initialValues = isLogin
     ? { email: '', password: '' }
-    : { firstName: '', lastName: '', userName: '', birthDate: { day: '', month: '', year: '' }, email: '', password: '' }
+    : { firstName: '', lastName: '', userName: '', birthDate: { day: '', month: '', year: '' }, email: '', password: '', hasDriverLicense: '', payment: '' }
 
   return (
     <div>
@@ -66,6 +71,7 @@ const LoginPage = () => {
           console.log(values)
           if (isLogin){
             await loginUser(values)
+            setCurrentUserName(values.userName)
             return <UserRoutesPage />
           }else{
             await registerUser(values).status === 201
@@ -113,6 +119,15 @@ const LoginPage = () => {
                     <option value="">Select</option>
                     <option value={true}>Yes</option>
                     <option value={false}>No</option>
+                  </Field>
+                  <ErrorMessage name="hasDriverLicense" component="div" className="error-message"/>
+                </div>
+                <div>
+                  <label>Payment method: </label>
+                  <Field as="select" name="hasDriverLicense">
+                    <option value="">Select</option>
+                    <option value={"visa"}>Visa</option>
+                    <option value={"paypal"}>Paypal</option>
                   </Field>
                   <ErrorMessage name="hasDriverLicense" component="div" className="error-message"/>
                 </div>

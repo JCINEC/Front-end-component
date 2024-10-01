@@ -2,8 +2,8 @@ import {createContext} from 'react'
 
 const context = createContext(
     {
-        currrentUserId: '',
-        joinedRoutesId: []
+        currrentUserName: '',
+        joinedUserRoutes: []
     }
 )
 

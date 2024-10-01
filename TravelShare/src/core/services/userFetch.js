@@ -45,3 +45,25 @@ export const loginUser = async (credentials) => {
     throw error // Re-throw the error for further handling
   }
 }
+
+export const getUserRoutes = async (userName) => {
+  try {
+    const response = await fetch(`${API_URL}/routes/${userName}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error('Process failure')
+    }
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error during conection:', error)
+    throw error
+  }
+}
+
